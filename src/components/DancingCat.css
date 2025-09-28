@@ -1,0 +1,332 @@
+.dancing-cat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dancing-cat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  --animation-speed: 2s;
+}
+
+.cat-image {
+  width: 200px;
+  height: 200px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  transform-origin: center bottom;
+}
+
+/* 기본 댄싱 애니메이션 */
+.dancing-cat.dancing.dance .cat-image {
+  animation:
+    catDance var(--animation-speed) ease-in-out infinite,
+    catBounce calc(var(--animation-speed) / 2) ease-in-out infinite alternate,
+    catWiggle calc(var(--animation-speed) * 1.5) ease-in-out infinite;
+}
+
+/* 바운스 전용 애니메이션 */
+.dancing-cat.dancing.bounce .cat-image {
+  animation: catBounce var(--animation-speed) ease-in-out infinite alternate;
+}
+
+/* 흔들기 전용 애니메이션 */
+.dancing-cat.dancing.wiggle .cat-image {
+  animation: catWiggle var(--animation-speed) ease-in-out infinite;
+}
+
+/* 메인 댄스 동작 - 좌우 흔들기와 회전 */
+@keyframes catDance {
+  0% {
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+  15% {
+    transform: translateX(-10px) rotate(-5deg) scale(1.05);
+  }
+  30% {
+    transform: translateX(10px) rotate(5deg) scale(0.95);
+  }
+  45% {
+    transform: translateX(-8px) rotate(-3deg) scale(1.1);
+  }
+  60% {
+    transform: translateX(8px) rotate(3deg) scale(0.9);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-2deg) scale(1.05);
+  }
+  90% {
+    transform: translateX(5px) rotate(2deg) scale(0.95);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+/* 바운스 동작 - 위아래 점프 */
+@keyframes catBounce {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 흔들기 동작 - 부드러운 좌우 움직임 */
+@keyframes catWiggle {
+  0%, 100% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(2deg);
+  }
+  75% {
+    transform: rotateZ(-2deg);
+  }
+}
+
+/* 호버 효과 */
+.dancing-cat:hover .cat-image {
+  transform: scale(1.1);
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+}
+
+/* 컨트롤 패널 스타일링 */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.control-label {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.button-group,
+.speed-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 메인 댄스 버튼 */
+.dance-button.primary {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(238, 90, 82, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.dance-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(238, 90, 82, 0.6);
+  background: linear-gradient(45deg, #ee5a52, #ff6b6b);
+}
+
+.dance-button.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(238, 90, 82, 0.4);
+}
+
+/* 스타일 버튼 */
+.style-button,
+.speed-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  min-width: 80px;
+}
+
+.style-button:hover,
+.speed-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.style-button.active,
+.speed-button.active {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+  border-color: #4ecdc4;
+  box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+}
+
+/* 키보드 힌트 */
+.keyboard-hint {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.keyboard-hint p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+/* 버튼 반짝임 효과 */
+.dance-button.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.dance-button.primary:hover::before {
+  left: 100%;
+}
+
+/* 반응형 디자인 요소 */
+@media (max-width: 768px) {
+  .cat-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .controls {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .dance-button.primary {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .style-button,
+  .speed-button {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 70px;
+  }
+
+  .button-group,
+  .speed-controls {
+    gap: 0.3rem;
+  }
+
+  .keyboard-hint p {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  @keyframes catDance {
+    0% {
+      transform: translateX(0) rotate(0deg) scale(1);
+    }
+    25% {
+      transform: translateX(-5px) rotate(-3deg) scale(1.03);
+    }
+    50% {
+      transform: translateX(5px) rotate(3deg) scale(0.97);
+    }
+    75% {
+      transform: translateX(-3px) rotate(-2deg) scale(1.02);
+    }
+    100% {
+      transform: translateX(0) rotate(0deg) scale(1);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .cat-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .dancing-cat-container {
+    gap: 1.5rem;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .controls {
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .dance-button.primary {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .style-button,
+  .speed-button {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.75rem;
+    min-width: 60px;
+  }
+
+  .control-label {
+    font-size: 0.9rem;
+  }
+
+  .button-group,
+  .speed-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .style-button,
+  .speed-button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
